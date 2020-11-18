@@ -32,8 +32,8 @@ $this->setFrameMode(true);
 		<?foreach($arResult["ITEMS"] as $arItem):?>
 		<div>
 			<div>
-				<?if(is_array($arItem["PREVIEW_PICTURE"])):?>
-				<a href="<?=$arItem["PROPERTY_LINK_PROD_DETAIL_PAGE_URL"]?>"><img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" alt="" /></a>
+				<?if(is_array($arItem["DETAIL_PICTURE"])):?>
+				<a href="<?=$arItem["PROPERTY_LINK_PROD_DETAIL_PAGE_URL"]?>"><img src="<?=$arItem["DETAIL_PICTURE"]["src"]?>" alt="" /></a>
 				<?endif;?>
 				<h2><a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?echo $arItem["NAME"]?></a></h2>
 				<p><?echo $arItem["PROPERTY_LINK_PROD_NAME"]?> всего за <?echo $arItem["PROPERTY_LINK_PROD_PROPERTY_PRICE_VALUE"]?> руб</p>
