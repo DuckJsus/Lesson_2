@@ -33,11 +33,11 @@ $this->setFrameMode(true);
 		<div>
 			<div>
 				<?if(is_array($arItem["DETAIL_PICTURE"])):?>
-				<a href="<?=$arItem["PROPERTY_LINK_PROD_DETAIL_PAGE_URL"]?>"><img src="<?=$arItem["DETAIL_PICTURE"]["src"]?>" alt="" /></a>
+				<a href="<?=$arResult["PROD_ELEM"][$arItem["PROPERTIES"]["LINK_PROD"]["VALUE"]]["DETAIL_PAGE_URL"]?>"><img src="<?=$arItem["DETAIL_PICTURE"]["src"]?>" alt="" /></a>
 				<?endif;?>
 				<h2><a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?echo $arItem["NAME"]?></a></h2>
-				<p><?echo $arItem["PROPERTY_LINK_PROD_NAME"]?> всего за <?echo $arItem["PROPERTY_LINK_PROD_PROPERTY_PRICE_VALUE"]?> руб</p>
-				<a href="<?=$arItem["PROPERTY_LINK_PROD_DETAIL_PAGE_URL"]?>" class="sl_more">Подробнее &rarr;</a>
+				<p><?echo $arResult["PROD_ELEM"][$arItem["PROPERTIES"]["LINK_PROD"]["VALUE"]]["NAME"]?> всего за <?echo $arResult["PROD_ELEM"][$arItem["PROPERTIES"]["LINK_PROD"]["VALUE"]]["PROPERTY_PRICE_VALUE"]?> руб</p>
+				<a href="<?=$arResult["PROD_ELEM"][$arItem["PROPERTIES"]["LINK_PROD"]["VALUE"]]["DETAIL_PAGE_URL"]?>" class="sl_more">Подробнее &rarr;</a>
 			</div>
 		</div>
 		<?endforeach;?>
