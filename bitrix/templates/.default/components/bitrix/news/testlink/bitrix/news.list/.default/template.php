@@ -70,7 +70,7 @@ $this->setFrameMode(true);
 			</small><br />
 		<?endforeach;?>
 		</br>
-		<?foreach($arItem["DISPLAY_PROPERTIES"] as $pid=>$arProperty):?>
+		<!-- <?foreach($arItem["DISPLAY_PROPERTIES"] as $pid=>$arProperty):?>
 			<small>
 			<?=$arProperty["NAME"]?>:&nbsp;
 			<?if(is_array($arProperty["DISPLAY_VALUE"])):?>
@@ -79,7 +79,18 @@ $this->setFrameMode(true);
 				<?=$arProperty["DISPLAY_VALUE"];?>
 			<?endif?>
 			</small><br />
-		<?endforeach;?>
+		<?endforeach;?> -->
+		<small>
+		<?
+			if(isset($arResult["CAT_ELEM"][$arItem["PROPERTIES"]["LINK_CAT"]["VALUE"]]))
+			{
+				?><a href="<?=$arResult["CAT_ELEM"][$arItem["PROPERTIES"]["LINK_CAT"]["VALUE"]]["DETAIL_PAGE_URL"]?>"><?=$arResult["CAT_ELEM"][$arItem["PROPERTIES"]["LINK_CAT"]["VALUE"]]["NAME"]?></a><?
+				?><br><?=$arResult["CAT_ELEM"][$arItem["PROPERTIES"]["LINK_CAT"]["VALUE"]]["PROPERTY_PRICE_VALUE"]?><?
+				?><br><?=$arResult["CAT_ELEM"][$arItem["PROPERTIES"]["LINK_CAT"]["VALUE"]]["PROPERTY_MANUFACTURER_VALUE"]?><?
+			}
+			
+		?>
+		</small>
 		
 	</p>
 <?endforeach;?>
