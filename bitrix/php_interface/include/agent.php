@@ -8,7 +8,6 @@ function AgentCheckCurrency()
         $arSelect = Array("ID", "NAME");
         $arFilter = Array("DISCOUNT_IBLOCK_ID"=>4, "!ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
         $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>50), $arSelect);
-        //
         while($ob = $res->GetNextElement())
         {
             $arItems[] = $ob->GetFields();
