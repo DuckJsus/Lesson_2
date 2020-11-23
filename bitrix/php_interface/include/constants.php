@@ -6,6 +6,8 @@ define('NEWS_IBLOCK_ID',2);
 //Инфоблок Акции_sales
 define('DISCOUNT_IBLOCK_ID',4);
 
-//ID группы пользователей "Администраторы"
+//ID группы "Администраторы"
 define('GROUP_ADMIN_ID',1);
+//ID группы "Контент-редакторы"
+define('GROUP_CONTENT_EDITOR_ID',5);
 ?>

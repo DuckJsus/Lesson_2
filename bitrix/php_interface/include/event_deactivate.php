@@ -31,7 +31,7 @@ AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", Array("CIBlockDeactivat
                     if(($curr <= 3) && ($arFields["ACTIVE"] == "N"))
                     { 
                         global $APPLICATION;
-                        $APPLICATION->throwException("«Вы деактивировали свежую новость");
+                        $APPLICATION->throwException("Вы деактивировали свежую новость");
                         return false;
                     }
                 }
