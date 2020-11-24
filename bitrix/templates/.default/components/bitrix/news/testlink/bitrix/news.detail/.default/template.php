@@ -24,12 +24,10 @@ $this->setFrameMode(true);
 			title="<?=$arResult["DETAIL_PICTURE"]["TITLE"]?>"
 			/>
 	<?endif?>
-	<?if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
-		<span class="news-date-time"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></span>
-	<?endif;?>
-	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
-		<h3><?=$arResult["NAME"]?></h3>
-	<?endif;?>
+	<?$this->SetViewTarget("news_detail_date");?>
+		<span class="main_date"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></span>
+	<?$this->EndViewTarget();?>
+	
 	<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arResult["FIELDS"]["PREVIEW_TEXT"]):?>
 		<p><?=$arResult["FIELDS"]["PREVIEW_TEXT"];unset($arResult["FIELDS"]["PREVIEW_TEXT"]);?></p>
 	<?endif;?>
