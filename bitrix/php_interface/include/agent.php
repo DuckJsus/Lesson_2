@@ -1,48 +1,46 @@
 <?
 //Функция проверяет наличие акций с истекшим сроком и отправляет сообщение на email всем, кто в группе Администраторы
-function AgentCheckCurrency()
+function AgentNoticeDatedSale()
 {
     if(CModule::IncludeModule("iblock"))
     {   
-        //Получаем переменные из инфоблока
-        $arSelect = Array("ID", "NAME");
-        $arFilter = Array("DISCOUNT_IBLOCK_ID"=>4, "!ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
-        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>50), $arSelect);
-        while($ob = $res->GetNextElement())
+        //Get the number of overdue discounts
+        $arFilter = array("IBLOCK_ID" => DISCOUNT_IBLOCK_ID, "!ACTIVE_DATE" =>"Y", "ACTIVE"=>"Y");
+        $res_count = CIBlockElement::GetList(array(), $arFilter, array(), false, false);
+
+        //Check overdue discount
+        if($res_count>0)
         {
-            $arItems[] = $ob->GetFields();
-        }
-        //Делает запись в лог
-        CEventLog::Add(array(
-            "SEVERITY" => "SECURITY",
-            "AUDIT_TYPE_ID" => "CHECK_DISCOUNT",
-            "MODULE_ID" =>"iblock",
-            "ITEM_ID" => "",
-            "DESCRIPTION" => "Проверка актуальности, устарели ".count($arItems)." элемента",
-        ));
-    
-        //Проверяем наличие акций. Отправляем письма, если есть просроченные акции
-        if(count($arItems)>0)
-        {
-            $filter = array("GROUP_ADMIN_ID" => array(1));
-            $rsUsers = CUser::GetList(($by="personal_country"), ($order="desc"), $filter);// выбираем пользователей
-            $arEmail = array();
-            while($arUser = $rsUsers->GetNext())
+            // Get list email of admins
+            $arFilter = array("GROUPS_ID" => ADMIN_GROUP_ID);
+            $arParameters["FIELDS"] = array("EMAIL");
+            $rsEmails = CUser::GetList(($by="id"), ($order="desc"), $arFilter, $arParameters);
+            while($ob = $rsEmails->Fetch())
             {
-                $arEmail[] = $arUser['EMAIL'];
+                $arEmails[] = $ob["EMAIL"];
             }
-    
-            if(count($arEmail)>0)
+            $strEmails = implode(", ",$arEmails);
+
+            //Send entry to the log
+            CEventLog::Add(array(
+                "SEVERITY" => "SECURITY",
+                "AUDIT_TYPE_ID" => "NOTICE_DATED_SALE",
+                "MODULE_ID" =>"iblock",
+                "ITEM_ID" => "",
+                "DESCRIPTION" => "Проверка актуальности, устарело акций: ".$res_count,
+            ));
+
+            //Send an email notification to administrators
+            if($strEmails)
             {
-                $arEventFields=array(
-                    "TEXT" => count($arItems),
-                    "EMAIL" => implode(", ", $arEmail)
+                $arEventFields = array(
+                    "TEXT" => "Проверка актуальности, устарело акций: ".$res_count,
+                    "EMAIL" => $strEmails,
                 );
-    
-                CEvent::Send("CHECK_DISCOUNT", SITE_ID, $arEventFields);
+                CEvent::Send("NOTICE_DATED_SALE", SITE_ID, $arEventFields);
             }
-        }
+        }   
     }
-    return "AgentCheckCurrency();";
+    return "AgentNoticeDatedSale();";
 }
 ?>
