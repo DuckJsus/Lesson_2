@@ -11,21 +11,7 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-
 ?>
-<script>
-	$().ready(function(){
-		$(function(){
-			$('#slides').slides({
-				preload: false,
-				generateNextPrev: false,
-				autoHeight: true,
-				play: 4000,
-				effect: 'fade'
-			});
-		});
-	});
-</script>
 
 <div class="sl_slider" id="slides">
 	<div class="slides_container">
