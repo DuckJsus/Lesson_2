@@ -10,6 +10,10 @@ define('VACANCY_IBLOCK_ID',5);
 
 //ID группы "Администраторы"
 define('GROUP_ADMIN_ID',1);
+//ID группы "Администраторы"
+define('ADMIN_GROUP_ID',1);
 //ID группы "Контент-редакторы"
 define('GROUP_CONTENT_EDITOR_ID',5);
+//ID группы "Контент-редакторы"
+define('CONTENT_EDITOR_GROUP_ID',5);
 ?>
