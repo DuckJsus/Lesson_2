@@ -4,4 +4,3 @@
     Asset::getInstance()->addJs("/bitrix/templates/.default/components/bitrix/news.list/discount.slider/js/slides.min.jquery.js");
     Asset::getInstance()->addJs("/bitrix/templates/.default/components/bitrix/news.list/discount.slider/js/functions.js");
     Asset::getInstance()->addCss("/bitrix/templates/.default/components/bitrix/news.list/discount.slider/style.css");
-?>
