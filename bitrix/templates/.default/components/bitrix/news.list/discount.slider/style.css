@@ -1,0 +1,79 @@
+.sl_slider{
+	width:995px;
+	margin:70px auto 0;
+	padding-bottom:23px;
+}
+
+.slides_container {
+	width:995px;
+	display:none;
+}
+.slides_container div {
+	width:995px;
+	min-height:270px;
+	display:block;
+}
+.slides_container div img,
+.sl_img img{
+	float:left;
+	margin-right:52px;
+	border:1px solid #ededed
+}
+.sl_text{vertical-align:top}
+.slides_container > div{
+	overflow:hidden;
+	width:995px;
+}
+.slides_container div h2{padding-top: 8px}
+.slides_container div h2 a{
+	text-decoration:none;
+	font-size:30px;
+	font-weight:normal;
+	color:#000;
+	display:block;
+	padding-bottom:28px;
+	text-shadow:0 0 2px #d1d1d1;
+}
+.slides_container div p{
+	font-size:15px;
+	color:#000;
+	line-height:24px;
+	padding-bottom:30px;
+	text-shadow:0 0 2px #d1d1d1;
+}
+.sl_more{
+	color:#d3d3d3;
+	font-size:14px;
+	text-decoration:none;
+}
+.sl_more:hover{
+	color:#000;
+	text-shadow:0 0 2px #d1d1d1;
+}
+.sl_slider .pagination{
+	text-align:center;
+	padding-top:24px;
+	display:block
+}
+.sl_slider .pagination li{
+	list-style:none;
+	display:inline-block;
+	width:14px;
+	margin:0 10px;
+	height:14px;
+	background:url(/bitrix/templates/.default/components/bitrix/news.list/discount.slider/images/gui.png) -67px -33px no-repeat;
+	overflow:hidden;
+}
+.sl_slider .pagination li a{
+	display:block;
+	width:14px;
+	height:0px;
+	padding-top:14px;
+}
+.sl_slider .pagination li.current,
+.sl_slider .pagination li:hover{
+	cursor:pointer;
+	background:url(/bitrix/templates/.default/components/bitrix/news.list/discount.slider/images/gui.png) -81px -33px no-repeat;
+}
+
+/*  // end slider area  */
