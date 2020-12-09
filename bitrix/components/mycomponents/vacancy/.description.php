@@ -2,18 +2,18 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
 $arComponentDescription = array(
-	"NAME" => GetMessage("IBLOCK_NEWS_NAME"),
-	"DESCRIPTION" => GetMessage("IBLOCK_NEWS_DESCRIPTION"),
-	"ICON" => "/images/news_all.gif",
+	"NAME" => GetMessage("IBLOCK_VACANCIES_NAME"),
+	"DESCRIPTION" => GetMessage("IBLOCK_VACANCIES_DESCRIPTION"),
 	"COMPLEX" => "Y",
 	"PATH" => array(
-		"ID" => "content",
+		"ID" => "extra",
+		"NAME" => GetMessage("T_IBLOCK_EXTRA"),
 		"CHILD" => array(
-			"ID" => "news",
-			"NAME" => GetMessage("T_IBLOCK_DESC_NEWS"),
+			"ID" => "vacancy",
+			"NAME" => GetMessage("T_IBLOCK_DESC_VACANCIES"),
 			"SORT" => 10,
 			"CHILD" => array(
-				"ID" => "news_cmpx",
+				"ID" => "vacancy_cmpx",
 			),
 		),
 	),

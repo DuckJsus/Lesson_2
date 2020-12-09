@@ -9,46 +9,9 @@
 /** @global CUser $USER */
 /** @global CMain $APPLICATION */
 
-if($arParams["USE_FILTER"]=="Y")
-{
-	if($arParams["FILTER_NAME"] == '' || !preg_match("/^[A-Za-z_][A-Za-z01-9_]*$/", $arParams["FILTER_NAME"]))
-		$arParams["FILTER_NAME"] = "arrFilter";
-}
-else
-	$arParams["FILTER_NAME"] = "";
-
-$arParams["USE_CATEGORIES"]=$arParams["USE_CATEGORIES"]=="Y";
-if($arParams["USE_CATEGORIES"])
-{
-	if(!is_array($arParams["CATEGORY_IBLOCK"]))
-		$arParams["CATEGORY_IBLOCK"] = array();
-	$ar = array();
-	foreach($arParams["CATEGORY_IBLOCK"] as $key=>$value)
-	{
-		$value=intval($value);
-		if($value>0)
-			$ar[$value]=true;
-	}
-	$arParams["CATEGORY_IBLOCK"] = array_keys($ar);
-}
-$arParams["CATEGORY_CODE"]=trim($arParams["CATEGORY_CODE"]);
-if($arParams["CATEGORY_CODE"] == '')
-	$arParams["CATEGORY_CODE"]="CATEGORY";
-$arParams["CATEGORY_ITEMS_COUNT"]=intval($arParams["CATEGORY_ITEMS_COUNT"]);
-if($arParams["CATEGORY_ITEMS_COUNT"]<=0)
-	$arParams["CATEGORY_ITEMS_COUNT"]=5;
-
-if(!is_array($arParams["CATEGORY_IBLOCK"]))
-	$arParams["CATEGORY_IBLOCK"] = array();
-foreach($arParams["CATEGORY_IBLOCK"] as $iblock_id)
-	if($arParams["CATEGORY_THEME_".$iblock_id]!="photo")
-		$arParams["CATEGORY_THEME_".$iblock_id]="list";
 
 $arDefaultUrlTemplates404 = array(
-	"news" => "",
-	"search" => "search/",
-	"rss" => "rss/",
-	"rss_section" => "#SECTION_ID#/rss/",
+	"vacancies" => "",
 	"detail" => "#ELEMENT_ID#/",
 	"section" => "",
 );
@@ -63,35 +26,6 @@ $arComponentVariables = array(
 	"ELEMENT_ID",
 	"ELEMENT_CODE",
 );
-
-if($arParams["USE_SEARCH"] != "Y")
-{
-	unset($arDefaultUrlTemplates404["search"]);
-	unset($arParams["SEF_URL_TEMPLATES"]["search"]);
-}
-else
-{
-	$arComponentVariables[] = "q";
-	$arComponentVariables[] = "tags";
-}
-
-if($arParams["USE_RSS"] != "Y")
-{
-	unset($arDefaultUrlTemplates404["rss"]);
-	unset($arDefaultUrlTemplates404["rss_section"]);
-	unset($arParams["SEF_URL_TEMPLATES"]["rss"]);
-	unset($arParams["SEF_URL_TEMPLATES"]["rss_section"]);
-}
-else
-{
-	$arComponentVariables[] = "rss";
-}
-
-/* Compatibility with deleted DETAIL_STRICT_SECTION_CHECK */
-if (isset($arParams["STRICT_SECTION_CHECK"]))
-	$arParams["DETAIL_STRICT_SECTION_CHECK"] = $arParams["STRICT_SECTION_CHECK"];
-else
-	$arParams["STRICT_SECTION_CHECK"] = $arParams["DETAIL_STRICT_SECTION_CHECK"];
 
 if($arParams["SEF_MODE"] == "Y")
 {
@@ -115,7 +49,7 @@ if($arParams["SEF_MODE"] == "Y")
 	$b404 = false;
 	if(!$componentPage)
 	{
-		$componentPage = "news";
+		$componentPage = "vacancies";
 		$b404 = true;
 	}
 
@@ -169,48 +103,25 @@ else
 		$componentPage = "detail";
 	elseif(isset($arVariables["SECTION_ID"]) && intval($arVariables["SECTION_ID"]) > 0)
 	{
-		if(isset($arVariables["rss"]) && $arVariables["rss"]=="y")
-			$componentPage = "rss_section";
-		else
 			$componentPage = "section";
 	}
 	elseif(isset($arVariables["SECTION_CODE"]) && $arVariables["SECTION_CODE"] <> '')
 	{
-		if(isset($arVariables["rss"]) && $arVariables["rss"]=="y")
-			$componentPage = "rss_section";
-		else
 			$componentPage = "section";
 	}
-	elseif(isset($arVariables["q"]) && trim($arVariables["q"]) <> '')
-		$componentPage = "search";
-	elseif(isset($arVariables["tags"]) && trim($arVariables["tags"]) <> '')
-		$componentPage = "search";
-	elseif(isset($arVariables["rss"]) && $arVariables["rss"]=="y")
-		$componentPage = "rss";
 	else
-		$componentPage = "news";
+		$componentPage = "vacancies";
 
 	$arResult = array(
 		"FOLDER" => "",
 		"URL_TEMPLATES" => array(
-			"news" => htmlspecialcharsbx($APPLICATION->GetCurPage()),
+			"vacancies" => htmlspecialcharsbx($APPLICATION->GetCurPage()),
 			"section" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?".$arVariableAliases["SECTION_ID"]."=#SECTION_ID#"),
 			"detail" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?".$arVariableAliases["ELEMENT_ID"]."=#ELEMENT_ID#"),
-			"search" => htmlspecialcharsbx($APPLICATION->GetCurPage()),
-			"rss" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?rss=y"),
-			"rss_section" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?".$arVariableAliases["SECTION_ID"]."=#SECTION_ID#&rss=y"),
 		),
 		"VARIABLES" => $arVariables,
 		"ALIASES" => $arVariableAliases
 	);
 }
 
-if($componentPage=="search")
-{
-	include_once("newstools.php");
-	global $BX_NEWS_DETAIL_URL, $BX_NEWS_SECTION_URL;
-	$BX_NEWS_DETAIL_URL = $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["detail"];
-	$BX_NEWS_SECTION_URL = $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"];
-	AddEventHandler("search", "OnSearchGetURL", array("CNewsTools","OnSearchGetURL"), 20);
-}
 $this->includeComponentTemplate($componentPage);
