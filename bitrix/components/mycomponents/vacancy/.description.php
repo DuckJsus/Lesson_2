@@ -13,7 +13,7 @@ $arComponentDescription = array(
 			"NAME" => GetMessage("T_IBLOCK_DESC_VACANCIES"),
 			"SORT" => 10,
 			"CHILD" => array(
-				"ID" => "vacancy_cmpx",
+				"ID" => "vacancies",
 			),
 		),
 	),

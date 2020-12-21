@@ -14,7 +14,7 @@ $arComponentDescription = array(
 			"NAME" => GetMessage("T_IBLOCK_DESC_VACANCY"),
 			"SORT" => 10,
 			"CHILD" => array(
-				"ID" => "vacancy_cmpx",
+				"ID" => "vacancy_list",
 			),
 		),
 	),

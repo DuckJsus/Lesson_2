@@ -12,10 +12,11 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 
-$this->addExternalCss("/bitrix/components/mycomponents/vacancy.list/templates/.default/template_style.css");
+$this->addExternalCss("/bitrix/components/mycomponents/vacancy.detail/templates/.default/template_style.css");
 $this->addExternalJS("/bitrix/templates/.default/js/jquery-1.8.2.min.js");
 $this->addExternalJS("/bitrix/templates/.default/js/functions.js");
 ?>
+
 
 <div class="sb_nav">
 	<?foreach($arResult["GROUPS"] as $arGroup):?>
