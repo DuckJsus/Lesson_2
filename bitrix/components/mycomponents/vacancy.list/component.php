@@ -115,10 +115,11 @@ if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false:
 			"ID" => $arResult["ELEMENTS"]
 		);
 
-		//подключение кнопок Эрмитажа (нет актуального кэша)
+		
 		$iterator = CIBlockElement::GetList(array(), $elementFilter, false, false, $arSelect);
 		while ($arItem = $iterator->Fetch())
 		{
+			//подключение кнопок Эрмитажа (нет актуального кэша)
 			$arButtons = CIBlock::GetPanelButtons(
 				$arItem["IBLOCK_ID"],
 				$arItem["ID"],

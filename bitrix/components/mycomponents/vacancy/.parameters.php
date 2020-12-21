@@ -1,5 +1,6 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
+/** @var array $arCurrentValues */
 
 if(!CModule::IncludeModule("iblock"))
 	return;
@@ -41,11 +42,6 @@ $arComponentParameters = array(
 				"NAME" => GetMessage("T_IBLOCK_SEF_PAGE_VACANCIES"),
 				"DEFAULT" => "",
 				"VARIABLES" => array(),
-			),
-			"section" => array(
-				"NAME" => GetMessage("T_IBLOCK_SEF_PAGE_VACANCIES_SECTION"),
-				"DEFAULT" => "",
-				"VARIABLES" => array("SECTION_ID"),
 			),
 			"detail" => array(
 				"NAME" => GetMessage("T_IBLOCK_SEF_PAGE_VACANCIES_DETAIL"),
@@ -107,6 +103,7 @@ $arComponentParameters = array(
 			"DEFAULT" => "Y",
 		),
 		"CACHE_TIME"  =>  array("DEFAULT"=>36000000),
+		
 	),
 );
 

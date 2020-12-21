@@ -2,9 +2,9 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Мебельная компания");
 ?><?$APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"discount.slider", 
-	array(
+	"bitrix:news.list",
+	"discount.slider",
+	Array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "Y",
 		"AJAX_MODE" => "N",
@@ -25,20 +25,15 @@ $APPLICATION->SetTitle("Мебельная компания");
 		"DISPLAY_PICTURE" => "Y",
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
-		"FIELD_CODE" => array(
-			0 => "DETAIL_PICTURE",
-			1 => "PROPERTY_LINK_PROD.NAME",
-			2 => "PROPERTY_LINK_PROD.PROPERTY_PRICE",
-			3 => "PROPERTY_LINK_PROD.DETAIL_PAGE_URL",
-			4 => "PROPERTY_LINK_PROD.SECTION_PAGE_URL",
-			5 => "",
-		),
+		"FIELD_CODE" => array(0=>"DETAIL_PICTURE",1=>"PROPERTY_LINK_PROD.NAME",2=>"PROPERTY_LINK_PROD.PROPERTY_PRICE",3=>"PROPERTY_LINK_PROD.DETAIL_PAGE_URL",4=>"PROPERTY_LINK_PROD.SECTION_PAGE_URL",5=>"",),
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "4",
 		"IBLOCK_TYPE" => "discount",
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
 		"INCLUDE_SUBSECTIONS" => "Y",
+		"LIST_PREV_PICT_H" => "90",
+		"LIST_PREV_PICT_W" => "140",
 		"MEDIA_PROPERTY" => "",
 		"MESSAGE_404" => "",
 		"NEWS_COUNT" => "10",
@@ -52,11 +47,7 @@ $APPLICATION->SetTitle("Мебельная компания");
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
 		"PREVIEW_TRUNCATE_LEN" => "",
-		"PROPERTY_CODE" => array(
-			0 => "",
-			1 => "PRICE",
-			2 => "",
-		),
+		"PROPERTY_CODE" => array(0=>"",1=>"PRICE",2=>"",),
 		"SEARCH_PAGE" => "/search/",
 		"SET_BROWSER_TITLE" => "Y",
 		"SET_LAST_MODIFIED" => "N",
@@ -73,11 +64,8 @@ $APPLICATION->SetTitle("Мебельная компания");
 		"STRICT_SECTION_CHECK" => "N",
 		"TEMPLATE_THEME" => "blue",
 		"USE_RATING" => "N",
-		"USE_SHARE" => "N",
-		"LIST_PREV_PICT_H" => "90",
-		"LIST_PREV_PICT_W" => "140"
-	),
-	false
+		"USE_SHARE" => "N"
+	)
 );?> <br>
 <p>
 </p><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

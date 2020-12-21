@@ -10,10 +10,10 @@
 /** @global CMain $APPLICATION */
 
 
+
 $arDefaultUrlTemplates404 = array(
-	"vacancies" => "",
+	"list" => "",
 	"detail" => "#ELEMENT_ID#/",
-	"section" => "",
 );
 
 $arDefaultVariableAliases404 = array();
@@ -49,16 +49,8 @@ if($arParams["SEF_MODE"] == "Y")
 	$b404 = false;
 	if(!$componentPage)
 	{
-		$componentPage = "vacancies";
+		$componentPage = "list";
 		$b404 = true;
-	}
-
-	if($componentPage == "section")
-	{
-		if (isset($arVariables["SECTION_ID"]))
-			$b404 |= (intval($arVariables["SECTION_ID"])."" !== $arVariables["SECTION_ID"]);
-		else
-			$b404 |= !isset($arVariables["SECTION_CODE"]);
 	}
 
 	if($b404 && CModule::IncludeModule('iblock'))
@@ -110,13 +102,12 @@ else
 			$componentPage = "section";
 	}
 	else
-		$componentPage = "vacancies";
+		$componentPage = "list";
 
 	$arResult = array(
 		"FOLDER" => "",
 		"URL_TEMPLATES" => array(
-			"vacancies" => htmlspecialcharsbx($APPLICATION->GetCurPage()),
-			"section" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?".$arVariableAliases["SECTION_ID"]."=#SECTION_ID#"),
+			"list" => htmlspecialcharsbx($APPLICATION->GetCurPage()),
 			"detail" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?".$arVariableAliases["ELEMENT_ID"]."=#ELEMENT_ID#"),
 		),
 		"VARIABLES" => $arVariables,

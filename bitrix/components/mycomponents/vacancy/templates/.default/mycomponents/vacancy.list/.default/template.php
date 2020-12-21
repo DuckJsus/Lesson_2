@@ -27,18 +27,18 @@ $this->addExternalJS("/bitrix/templates/.default/js/functions.js");
 				<?foreach($arResult["ITEMS"] as $arItem):?>
 					<?if($arGroup["ID"] == $arItem["IBLOCK_SECTION_ID"]):?>
 						<ul>
-						<li><a>
+						<li>
 							<!--Эрмитаж-->
 							<?
 							$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
 							$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage(
 								'CT_BNL_ELEMENT_DELETE_CONFIRM')));
 							?>
+							<a>
 							<div id="<?=$this->GetEditAreaId($arItem['ID']);?>">
 							<?if($arItem["NAME"]):?>
-								<p><b><a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?echo $arItem["NAME"]?></a></b></p><br />
+								<p><b><object><a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?echo $arItem["NAME"]?></a></object></b></p><br />
 							<?endif;?>
-							<?dump($arItem);?>
 							<?foreach($arItem["DISPLAY_PROPERTIES"] as $pid=>$arProperty):?>
 								<p>
 								<b><?=$arProperty["NAME"]?>:&nbsp;</b>
@@ -52,8 +52,8 @@ $this->addExternalJS("/bitrix/templates/.default/js/functions.js");
 							<?if($arParams["DISPLAY_PREVIEW_TEXT"] == "Y" && $arItem["PREVIEW_TEXT"]):?>
 								<p><b><?=GetMessage("DESCRIPTION_PREVIEW_TEXT");?></b><?echo $arItem["PREVIEW_TEXT"];?></p><br />
 							<?endif;?>
-							</div>
-							</a></li>	
+							</div></a>
+							</li>	
 						</ul>
 					<?endif;?>
 				<?endforeach;?>
