@@ -33,12 +33,10 @@ foreach($arParams["PROPERTY_CODE"] as $key=>$val)
 	if($val==="")
 		unset($arParams["PROPERTY_CODE"][$key]);
 
-$arParams["CACHE_FILTER"] = $arParams["CACHE_FILTER"]=="Y";
-if(!$arParams["CACHE_FILTER"])
-	$arParams["CACHE_TIME"] = 0;
+$arParams["DETAIL_URL"]=trim($arParams["DETAIL_URL"]);
 
 //Начало кэширования
-if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false: true))))
+if($this->startResultCache(false, array()))
 {
 	if(!Loader::includeModule("iblock"))
 	{
@@ -75,6 +73,8 @@ if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false:
 		"IBLOCK_ID",
 		"IBLOCK_SECTION_ID",
 		"NAME",
+		"DETAIL_PAGE_URL",
+		"LIST_PAGE_URL",
 		"PREVIEW_TEXT",
 		"PREVIEW_TEXT_TYPE",
 	);
@@ -117,7 +117,8 @@ if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false:
 
 		
 		$iterator = CIBlockElement::GetList(array(), $elementFilter, false, false, $arSelect);
-		while ($arItem = $iterator->Fetch())
+		$iterator->SetUrlTemplates($arParams["DETAIL_URL"], "", $arParams["IBLOCK_URL"]);
+		while ($arItem = $iterator->GetNext())
 		{
 			//подключение кнопок Эрмитажа (нет актуального кэша)
 			$arButtons = CIBlock::GetPanelButtons(

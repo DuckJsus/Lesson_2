@@ -1125,7 +1125,7 @@ color: #0073A3;
 .sb_reviewed,
 .sb_action{
 	box-shadow:0 2px 1px -1px #bababa;
-	border-radius:3px;
+	border-radius:6px;
 	border-right:1px solid #ececec;
 	border-left:1px solid #ececec
 }
@@ -1143,15 +1143,16 @@ color: #0073A3;
 	display:block;
 	position:relative;
 }
-.sb_nav>ul>li:first-child{border-radius:5px 5px 0 0}
+.sb_nav>ul>li:first-child{border-radius:7px;}
 .sb_nav>ul>li .sb_showchild{
 	position: absolute;
 	width: 20px;
-	height: 46px;
+	height: 48px;
 	left: 0;
 	top: 0;
 	cursor:pointer;
 	background:url(/bitrix/templates/.default/images/sb_arrow_close.png) no-repeat center;
+	border-radius:6px;
 }
 .sb_nav>ul>li .sb_showchild:hover{background-color:#ddebf4 !important}
 .sb_nav>ul>li.open .sb_showchild{background:url(/bitrix/templates/.default/images/sb_arrow_open.png) no-repeat center;}

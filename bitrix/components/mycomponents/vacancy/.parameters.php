@@ -38,7 +38,7 @@ $arComponentParameters = array(
 			"ELEMENT_ID" => array("NAME" => GetMessage("NEWS_ELEMENT_ID_DESC")),
 		),
 		"SEF_MODE" => array(
-			"vacancies" => array(
+			"list" => array(
 				"NAME" => GetMessage("T_IBLOCK_SEF_PAGE_VACANCIES"),
 				"DEFAULT" => "",
 				"VARIABLES" => array(),
@@ -46,9 +46,13 @@ $arComponentParameters = array(
 			"detail" => array(
 				"NAME" => GetMessage("T_IBLOCK_SEF_PAGE_VACANCIES_DETAIL"),
 				"DEFAULT" => "#ELEMENT_ID#/",
-				"VARIABLES" => array("ELEMENT_ID", "SECTION_ID"),
+				"VARIABLES" => array("ELEMENT_ID"),
 			),
-			
+			"resume" => array(
+				"NAME" => GetMessage("T_IBLOCK_SEF_PAGE_VACANCIES_DETAIL"),
+				"DEFAULT" => "#ELEMENT_ID#/resume/",
+				"VARIABLES" => array("ELEMENT_ID", "RESUME_ID"),
+			),
 		),
 		"AJAX_MODE" => array(),
 		"IBLOCK_TYPE" => array(
@@ -64,7 +68,7 @@ $arComponentParameters = array(
 			"NAME" => GetMessage("BN_P_IBLOCK"),
 			"TYPE" => "LIST",
 			"VALUES" => $arIBlocks,
-			"DEFAULT" => 'vacancy',
+			"DEFAULT" => 5,
 			"REFRESH" => "Y",
 			"ADDITIONAL_VALUES" => "Y",
 		),

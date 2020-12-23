@@ -33,12 +33,10 @@ foreach($arParams["PROPERTY_CODE"] as $key=>$val)
 	if($val==="")
 		unset($arParams["PROPERTY_CODE"][$key]);
 
-$arParams["CACHE_FILTER"] = $arParams["CACHE_FILTER"]=="Y";
-if(!$arParams["CACHE_FILTER"])
-	$arParams["CACHE_TIME"] = 0;
+$arParams["DETAIL_URL"]=trim($arParams["DETAIL_URL"]);
 
 //Начало кэширования
-if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false: true))))
+if($this->startResultCache(false, array()))
 {
 	if(!Loader::includeModule("iblock"))
 	{
@@ -75,50 +73,22 @@ if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false:
 		"IBLOCK_ID",
 		"IBLOCK_SECTION_ID",
 		"NAME",
-		"PREVIEW_TEXT",
-		"PREVIEW_TEXT_TYPE",
+		"DETAIL_PAGE_URL",
+		"LIST_PAGE_URL",
+		"DETAIL_TEXT",
+		"DETAIL_TEXT_TYPE",
 	);
 	$bGetProperty = !empty($arParams["PROPERTY_CODE"]);
-	//WHERE
-	$arFilter = array (
-		"IBLOCK_ID" => $arResult["ID"],
-		"IBLOCK_LID" => SITE_ID,
-		"ACTIVE" => "Y",
-	);
-
-	$shortSelect = array('ID', 'IBLOCK_ID');
-	foreach (array_keys($arSort) as $index)
-	{
-		if (!in_array($index, $shortSelect))
-		{
-			$shortSelect[] = $index;
-		}
-	}
-
-	//Get items parametrs
-	$arResult["ITEMS"] = array();
-	$arResult["ELEMENTS"] = array();
-	$rsElement = CIBlockElement::GetList($arSort, array_merge($arFilter), false, array(), $shortSelect);
-	while ($row = $rsElement->Fetch())
-	{
-		$id = (int)$row['ID'];
-		$arResult["ITEMS"][$id] = $row;
-		$arResult["ELEMENTS"][] = $id;
-	}
-	unset($row);
-
-	if (!empty($arResult['ITEMS']))
-	{
+	
 		$elementFilter = array(
-			"IBLOCK_ID" => $arResult["ID"],
-			"IBLOCK_LID" => SITE_ID,
-			"ID" => $arResult["ELEMENTS"]
+			"ID" => $_REQUEST["ELEMENT_ID"],
 		);
-
-		//подключение кнопок Эрмитажа (нет актуального кэша)
+		
 		$iterator = CIBlockElement::GetList(array(), $elementFilter, false, false, $arSelect);
-		while ($arItem = $iterator->Fetch())
+		$iterator->SetUrlTemplates($arParams["DETAIL_URL"], "", $arParams["IBLOCK_URL"]);
+		while ($arItem = $iterator->GetNext())
 		{
+			//подключение кнопок Эрмитажа (нет актуального кэша)
 			$arButtons = CIBlock::GetPanelButtons(
 				$arItem["IBLOCK_ID"],
 				$arItem["ID"],
@@ -149,18 +119,6 @@ if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false:
 				$elementFilter
 			);
 		}
-	}
-
-	//Get sections list
-	$arSelect = array("ID", "NAME", "DEPTH_LEVEL");
-	$arFilter = array('IBLOCK_ID'=>$arParams["IBLOCK_ID"]); 
-	$rsSect = CIBlockSection::GetList(Array("SORT"=>"ASC"), $arFilter, false, $arSelect, false);
-	while ($arSect = $rsSect->Fetch())
-	{
-		$arResult["GROUPS"][] = $arSect;
-	}
-	unset($rsSect);
-
 	$arResult['ITEMS'] = array_values($arResult['ITEMS']);
 
 	foreach ($arResult["ITEMS"] as &$arItem)
@@ -179,19 +137,17 @@ if($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false:
 				}
 			}
 		}
-
-		
-
-		
 	}
 	unset($arItem);
 
 	//Формирование массива с ключами кэша
 	$this->setResultCacheKeys(array(
-		"ID",
+        "ID",
+        "IBLOCK_ID",
 		"NAME",
 		"ELEMENTS",
-		"IPROPERTY_VALUES",
+        "IPROPERTY_VALUES",
+        "PROPERTIES",
 	));
 
 	//component template connection

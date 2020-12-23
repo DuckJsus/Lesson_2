@@ -14,6 +14,7 @@
 $arDefaultUrlTemplates404 = array(
 	"list" => "",
 	"detail" => "#ELEMENT_ID#/",
+	"resume" => "#ELEMENT_ID#/resume/"
 );
 
 $arDefaultVariableAliases404 = array();
@@ -30,6 +31,7 @@ $arComponentVariables = array(
 if($arParams["SEF_MODE"] == "Y")
 {
 	$arVariables = array();
+	dump($arParams);
 
 	$arUrlTemplates = CComponentEngine::makeComponentUrlTemplates($arDefaultUrlTemplates404, $arParams["SEF_URL_TEMPLATES"]);
 	$arVariableAliases = CComponentEngine::makeComponentVariableAliases($arDefaultVariableAliases404, $arParams["VARIABLE_ALIASES"]);
@@ -88,18 +90,16 @@ else
 	CComponentEngine::initComponentVariables(false, $arComponentVariables, $arVariableAliases, $arVariables);
 
 	$componentPage = "";
-
+dump($arVariables);
+dump($_GET);
+dump($_REQUEST["ELEMENT_ID"]);
 	if(isset($arVariables["ELEMENT_ID"]) && intval($arVariables["ELEMENT_ID"]) > 0)
-		$componentPage = "detail";
+		$componentPage = $_GET['resume'] == 'Y' ? 'resume' : "detail";
 	elseif(isset($arVariables["ELEMENT_CODE"]) && $arVariables["ELEMENT_CODE"] <> '')
-		$componentPage = "detail";
-	elseif(isset($arVariables["SECTION_ID"]) && intval($arVariables["SECTION_ID"]) > 0)
+		$componentPage = $_GET['resume'] == 'Y' ? 'resume' : "detail";
+	elseif(isset($arVariables["ELEMENT_ID"]) && intval($arVariables["ELEMENT_ID"]) == 0)
 	{
-			$componentPage = "section";
-	}
-	elseif(isset($arVariables["SECTION_CODE"]) && $arVariables["SECTION_CODE"] <> '')
-	{
-			$componentPage = "section";
+		$componentPage = $_GET['resume'] == 'Y' ? 'resume' : "detail";
 	}
 	else
 		$componentPage = "list";
@@ -109,6 +109,7 @@ else
 		"URL_TEMPLATES" => array(
 			"list" => htmlspecialcharsbx($APPLICATION->GetCurPage()),
 			"detail" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?".$arVariableAliases["ELEMENT_ID"]."=#ELEMENT_ID#"),
+			"resume" => htmlspecialcharsbx($APPLICATION->GetCurPage()."?".$arVariableAliases["ELEMENT_ID"]."=#ELEMENT_ID#&resume=Y")
 		),
 		"VARIABLES" => $arVariables,
 		"ALIASES" => $arVariableAliases
