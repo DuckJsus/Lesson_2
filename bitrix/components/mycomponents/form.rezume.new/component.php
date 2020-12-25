@@ -516,7 +516,6 @@ if (CModule::IncludeModule("form"))
 				"REQUIRED"					=> $arResult["arQuestions"][$FIELD_SID]["REQUIRED"] == "Y" ? "Y" : "N",
 				"IS_INPUT_CAPTION_IMAGE"	=> intval($arResult["arQuestions"][$FIELD_SID]["IMAGE_ID"]) > 0 ? "Y" : "N",
 			);
-
 			// ******************************** customize answers ***************************** //
 
 			$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = array();
@@ -936,6 +935,19 @@ if (CModule::IncludeModule("form"))
 		$arResult["CAPTCHA_IMAGE"] = "<input type=\"hidden\" name=\"captcha_sid\" value=\"".htmlspecialcharsbx($arResult["CAPTCHACode"])."\" /><img src=\"/bitrix/tools/captcha.php?captcha_sid=".htmlspecialcharsbx($arResult["CAPTCHACode"])."\" width=\"180\" height=\"40\" />";
 		$arResult["CAPTCHA_FIELD"] = "<input type=\"text\" name=\"captcha_word\" size=\"30\" maxlength=\"50\" value=\"\" class=\"inputtext\" />";
 		$arResult["CAPTCHA"] = $arResult["CAPTCHA_IMAGE"]."<br />".$arResult["CAPTCHA_FIELD"];
+
+		//Устанавливаем название вакансии
+		$res = CIBlockElement::GetByID($_REQUEST{"ELEMENT_ID"});
+		if($ar_res = $res->GetNext())
+			$vacancyName = $ar_res["NAME"];
+
+		foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion)
+			{
+				if ($arQuestion["CAPTION"] == "Вакансия:")
+				{
+					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = $vacancyName;	
+				}
+			}
 
 		// include default template
 		$this->IncludeComponentTemplate();
